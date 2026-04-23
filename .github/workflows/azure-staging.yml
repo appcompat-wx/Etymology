@@ -1,0 +1,46 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Setup build test and deploy to Azure staging
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  setup-build-test-deploy:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@master
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v2.1.2
+      with:
+        node-version: '15'
+        check-latest: true
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.100'
+
+    - name: Build
+      run: dotnet build --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      env:
+        Etymology: ${{ secrets.Etymology }}
+
+    - name: Publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+    - name: Deploy
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: 'etymology-staging'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_65a331250c6747ebb97f9bf4e3050b77 }}
+        package: ${{env.DOTNET_ROOT}}/myapp 
