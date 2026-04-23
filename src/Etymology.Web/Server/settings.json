@@ -1,0 +1,34 @@
+﻿{
+  "AllowedHosts": [
+    "hanziyuan.net",
+    "etymology.azurewebsites.net",
+    "etymology-staging.azurewebsites.net",
+    "localhost",
+    "127.0.0.1"
+  ],
+  "Connections": {
+    "Etymology": "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=Etymology;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  },
+  "ErrorPagePath": "/error",
+  "IndexPagePaths": [ "/", "/index.htm" ],
+  "IsHttpsOnly": false,
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "PublicPaths": [
+    "/css",
+    "/error",
+    "/fonts",
+    "/images",
+    "/js",
+    "/favicon.ico",
+    "/robots.txt"
+  ],
+  "Routes": {
+    "default": "{controller}/{action}"
+  },
+  "SameSiteMode": "Strict"
+}
